@@ -4,7 +4,7 @@ axios.defaults.baseURL = "/api";
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [fileName, setFileName] = useState("");
+  const [fileId, setFileId] = useState("");
 
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -27,7 +27,7 @@ function App() {
         },
       });
       console.log(response.data);
-      alert("File uploaded successfully");
+      alert(`Copy this Id: ${response.data.fileId}`);
       setSelectedFile(null);
       setFileName("");
     } catch (error) {
@@ -43,19 +43,24 @@ function App() {
           <input type="file" onChange={handleFileSelect} />
         </div>
         <div>
-          <input
-            type="text"
-            placeholder="Filename"
-            value={fileName}
-            onChange={handleFileName}
-          />
-        </div>
-        <div>
           <button type="submit" className="p-2 bg-white">
             Upload
           </button>
         </div>
       </form>
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={fileId}
+          onChange={(e) => setFileId(e.target.value)}
+        />
+        <a
+          href={`${axios.defaults.baseURL}/download/${fileId}`}
+          className="p-2 bg-white"
+        >
+          Download File
+        </a>
+      </div>
     </div>
   );
 }
