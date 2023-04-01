@@ -10,15 +10,10 @@ function App() {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleFileName = (event) => {
-    setFileName(event.target.value);
-  };
-
   const handleFileUpload = async (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("file", selectedFile);
-    formData.append("filename", fileName);
 
     try {
       const response = await axios.post("/upload", formData, {
@@ -29,7 +24,6 @@ function App() {
       console.log(response.data);
       alert(`Copy this Id: ${response.data.fileId}`);
       setSelectedFile(null);
-      setFileName("");
     } catch (error) {
       console.log(error);
     }

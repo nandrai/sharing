@@ -10,7 +10,7 @@ const logAndError = (err, res) => {
 
 const getFilePath = (fileName) => {
   try {
-    const folderPath = path.join(__dirname, "../../../uploads"),
+    const folderPath = path.join(__dirname, "../../uploads"),
       files = fs.readdirSync(folderPath),
       fileRegex = new RegExp(`^${fileName}.*$`),
       fileMatch = files.find((file) => fileRegex.test(file)),
